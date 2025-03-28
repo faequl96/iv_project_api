@@ -1,6 +1,6 @@
 name: iv_project_api
 description: "IV Project API"
-version: 0.0.2
+version: 0.0.3
 homepage:
 publish_to: none
 
@@ -11,8 +11,6 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  dio: ^5.8.0+1
-  shared_preferences: ^2.5.2
 
   # iv_project_model:
   #   path: ../iv_project_model
@@ -21,6 +19,12 @@ dependencies:
     git:
       url: https://github.com/faequl96/iv_project_model.git
       ref: 0.0.3
+  
+  dio: ^5.8.0+1
+  shared_preferences: ^2.5.2
+  
+  firebase_auth: ^5.5.1
+  google_sign_in: ^6.3.0
 
 dev_dependencies:
   flutter_test:
