@@ -5,6 +5,7 @@ export 'src/core/api_client.dart';
 export 'src/core/api_exception.dart';
 export 'src/core/api_interceptor.dart';
 export 'src/core/endpoints.dart';
+export 'src/core/general_exception.dart';
 
 export 'src/services/ad_mob_service.dart';
 export 'src/services/auth_service.dart';

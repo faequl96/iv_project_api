@@ -4,6 +4,7 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:iv_project_api/src/core/api_client.dart';
 import 'package:iv_project_api/src/core/api_exception.dart';
 import 'package:iv_project_api/src/core/endpoints.dart';
+import 'package:iv_project_api/src/core/general_exception.dart';
 import 'package:iv_project_model/iv_project_model.dart';
 
 class AuthService {
@@ -25,12 +26,12 @@ class AuthService {
       final GoogleSignInAccount? googleUser = await _googleSignIn.signIn();
       if (googleUser == null) {
         await _googleSignIn.signOut();
-        throw Exception('Google Sign-In dibatalkan');
+        throw GeneralException(message: 'Google Sign-In dibatalkan');
       }
 
       final GoogleSignInAuthentication googleAuth = await googleUser.authentication;
       if (googleAuth.accessToken == null || googleAuth.idToken == null) {
-        throw Exception('Google Sign-In gagal mendapatkan token.');
+        throw GeneralException(message: 'Google Sign-In gagal mendapatkan token.');
       }
 
       final AuthCredential credential = GoogleAuthProvider.credential(
@@ -40,14 +41,14 @@ class AuthService {
       final UserCredential userCredential = await _firebaseAuth.signInWithCredential(credential);
       final User? user = userCredential.user;
       if (user == null) {
-        throw Exception('Login gagal, user tidak ditemukan.');
+        throw GeneralException(message: 'Login gagal, user tidak ditemukan.');
       }
 
       return user;
     } on FirebaseAuthException catch (error) {
-      throw Exception('Firebase Login Error: ${error.message}');
-    } catch (error) {
-      throw Exception('Terjadi kesalahan saat login: $error');
+      throw Exception('Login Error: ${error.message}');
+    } catch (_) {
+      rethrow;
     }
   }
 
@@ -56,14 +57,45 @@ class AuthService {
       final UserCredential userCredential = await _firebaseAuth.signInWithEmailAndPassword(email: email, password: password);
       final User? user = userCredential.user;
       if (user == null) {
-        throw Exception('Login gagal, user tidak ditemukan.');
+        throw GeneralException(message: 'Login gagal, user tidak ditemukan.');
       }
 
       return user;
     } on FirebaseAuthException catch (error) {
-      throw Exception('Firebase Login Error: ${error.message}');
-    } catch (error) {
-      throw Exception('Terjadi kesalahan saat login: $error');
+      throw Exception('Login Error: ${error.message}');
+    } catch (_) {
+      rethrow;
+    }
+  }
+
+  Future<void> createUserWithEmailAndPassword(String email, String password) async {
+    try {
+      await _firebaseAuth.createUserWithEmailAndPassword(email: email, password: password);
+    } on FirebaseAuthException catch (error) {
+      throw Exception('Register Error: ${error.message}');
+    } catch (_) {
+      rethrow;
+    }
+  }
+
+  Future<void> sendPasswordResetEmail(String email) async {
+    try {
+      await _firebaseAuth.sendPasswordResetEmail(email: email);
+    } on FirebaseAuthException catch (error) {
+      throw Exception('Reset password Error: ${error.message}');
+    } catch (_) {
+      rethrow;
+    }
+  }
+
+  Future<void> signOut() async {
+    try {
+      await _firebaseAuth.signOut();
+      await _googleSignIn.signOut();
+    } on FirebaseAuthException catch (error) {
+      throw Exception('Logout Error: ${error.message}');
+    } catch (_) {
+      rethrow;
     }
   }
 }
