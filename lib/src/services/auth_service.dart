@@ -26,27 +26,25 @@ class AuthService {
       final GoogleSignInAccount? googleUser = await _googleSignIn.signIn();
       if (googleUser == null) {
         await _googleSignIn.signOut();
-        throw GeneralException(message: 'Google Sign-In dibatalkan');
+        throw GeneralException('Google Sign-In dibatalkan');
       }
 
       final GoogleSignInAuthentication googleAuth = await googleUser.authentication;
       if (googleAuth.accessToken == null || googleAuth.idToken == null) {
-        throw GeneralException(message: 'Google Sign-In gagal mendapatkan token.');
+        throw GeneralException('Google Sign-In gagal mendapatkan token.');
       }
 
-      final AuthCredential credential = GoogleAuthProvider.credential(
+      final OAuthCredential authCredential = GoogleAuthProvider.credential(
         accessToken: googleAuth.accessToken,
         idToken: googleAuth.idToken,
       );
-      final UserCredential userCredential = await _firebaseAuth.signInWithCredential(credential);
+      final UserCredential userCredential = await _firebaseAuth.signInWithCredential(authCredential);
       final User? user = userCredential.user;
       if (user == null) {
-        throw GeneralException(message: 'Login gagal, user tidak ditemukan.');
+        throw GeneralException('Login gagal, user tidak ditemukan.');
       }
 
       return user;
-    } on FirebaseAuthException catch (error) {
-      throw Exception('Login Error: ${error.message}');
     } catch (_) {
       rethrow;
     }
@@ -57,43 +55,60 @@ class AuthService {
       final UserCredential userCredential = await _firebaseAuth.signInWithEmailAndPassword(email: email, password: password);
       final User? user = userCredential.user;
       if (user == null) {
-        throw GeneralException(message: 'Login gagal, user tidak ditemukan.');
+        throw GeneralException('Login gagal, user tidak ditemukan.');
       }
 
       return user;
-    } on FirebaseAuthException catch (error) {
-      throw Exception('Login Error: ${error.message}');
     } catch (_) {
       rethrow;
     }
   }
 
   Future<void> createUserWithEmailAndPassword(String email, String password) async {
+    await _firebaseAuth.createUserWithEmailAndPassword(email: email, password: password);
+  }
+
+  Future<void> linkingGoogleAndEmail(String email, String password) async {
     try {
-      await _firebaseAuth.createUserWithEmailAndPassword(email: email, password: password);
-    } on FirebaseAuthException catch (error) {
-      throw Exception('Register Error: ${error.message}');
+      final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
+      if (googleUser == null) {
+        await _googleSignIn.signOut();
+        throw GeneralException('Google Sign-In dibatalkan');
+      }
+
+      final GoogleSignInAuthentication googleAuth = await googleUser.authentication;
+      if (googleAuth.accessToken == null || googleAuth.idToken == null) {
+        throw GeneralException('Google Sign-In gagal mendapatkan token.');
+      }
+
+      final OAuthCredential authCredential = GoogleAuthProvider.credential(
+        accessToken: googleAuth.accessToken,
+        idToken: googleAuth.idToken,
+      );
+
+      UserCredential googleUserCredential = await FirebaseAuth.instance.signInWithCredential(authCredential);
+      User? user = googleUserCredential.user;
+      if (user == null) {
+        throw GeneralException('Login gagal, user tidak ditemukan.');
+      }
+
+      if (user.email == email) {
+        AuthCredential emailCredential = EmailAuthProvider.credential(email: email, password: password);
+        await user.linkWithCredential(emailCredential);
+      }
     } catch (_) {
       rethrow;
     }
   }
 
   Future<void> sendPasswordResetEmail(String email) async {
-    try {
-      await _firebaseAuth.sendPasswordResetEmail(email: email);
-    } on FirebaseAuthException catch (error) {
-      throw Exception('Reset password Error: ${error.message}');
-    } catch (_) {
-      rethrow;
-    }
+    await _firebaseAuth.sendPasswordResetEmail(email: email);
   }
 
   Future<void> signOut() async {
     try {
       await _firebaseAuth.signOut();
       await _googleSignIn.signOut();
-    } on FirebaseAuthException catch (error) {
-      throw Exception('Logout Error: ${error.message}');
     } catch (_) {
       rethrow;
     }

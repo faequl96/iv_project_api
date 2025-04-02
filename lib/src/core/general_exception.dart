@@ -1,5 +1,5 @@
 class GeneralException implements Exception {
-  GeneralException({required this.message});
+  GeneralException(this.message);
 
   final String message;
 
