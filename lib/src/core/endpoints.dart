@@ -142,6 +142,7 @@ class VoucherCodeEndpoints {
 
   static const createVoucherCode = '/voucher-code';
   static const getVoucherCodeById = '/voucher-code/id/';
+  static const getVoucherCodeByName = '/voucher-code/name/';
   static const updateVoucherCodeById = '/voucher-code/id/';
   static const deleteVoucherCodeById = '/voucher-code/id/';
 }

@@ -5,30 +5,30 @@ homepage:
 publish_to: none
 
 environment:
-  sdk: ^3.7.2
+  sdk: ^3.8.1
   flutter: ">=1.17.0"
 
 dependencies:
   flutter:
     sdk: flutter
 
-  # iv_project_model:
-  #   path: ../iv_project_model
-
   iv_project_model:
-    git:
-      url: https://github.com/faequl96/iv_project_model.git
-      ref: 0.0.3
+    path: ../iv_project_model
+
+  # iv_project_model:
+  #   git:
+  #     url: https://github.com/faequl96/iv_project_model.git
+  #     ref: 0.0.3
   
   dio: ^5.8.0+1
-  shared_preferences: ^2.5.2
+  shared_preferences: ^2.5.3
   
-  firebase_auth: ^5.5.1
+  firebase_auth: ^5.6.0
   google_sign_in: ^6.3.0
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  flutter_lints: ^5.0.0
+  flutter_lints: ^6.0.0
 
 flutter:

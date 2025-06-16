@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:iv_project_api/iv_project_api.dart';
 import 'package:iv_project_api/src/core/api_interceptor.dart';
 
 class ApiClient {
@@ -20,6 +21,14 @@ class ApiClient {
       ),
     );
 
+    dio.options.headers = {'Accept-Language': 'id'};
+
     dio.interceptors.add(ApiInterceptor());
+  }
+
+  static void setLang(String value) {
+    dio.options.headers = {'Accept-Language': value};
+
+    AuthService.setLang(value);
   }
 }

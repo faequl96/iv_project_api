@@ -25,6 +25,15 @@ class VoucherCodeService {
     }
   }
 
+  Future<VoucherCodeResponse> getVoucherCodeByName(String name) async {
+    try {
+      final response = await _dio.get('${VoucherCodeEndpoints.getVoucherCodeByName}$name');
+      return VoucherCodeResponse.fromJson(response.data['data']);
+    } on DioException catch (error) {
+      throw ApiException.fromDioError(error);
+    }
+  }
+
   Future<VoucherCodeResponse> updateVoucherCodeById(int id, VoucherCodeRequest request) async {
     try {
       final response = await _dio.patch('${VoucherCodeEndpoints.updateVoucherCodeById}$id', data: request.toJson());

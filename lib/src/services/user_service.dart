@@ -25,9 +25,9 @@ class UserService {
     }
   }
 
-  Future<List<UserResponse>> getUsers() async {
+  Future<List<UserResponse>> getUsers({QueryRequest? query}) async {
     try {
-      final response = await _dio.get(UserEndpoints.getUsers);
+      final response = await _dio.get(UserEndpoints.getUsers, data: query?.toJson());
       return (response.data['data'] as List).map((json) => UserResponse.fromJson(json)).toList();
     } on DioException catch (error) {
       throw ApiException.fromDioError(error);
