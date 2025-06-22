@@ -7,45 +7,45 @@ import 'package:iv_project_model/iv_project_model.dart';
 class DiscountCategoryService {
   final Dio _dio = ApiClient.dio;
 
-  Future<DiscountCategoryResponse> createDiscountCategory(DiscountCategoryRequest request) async {
+  Future<DiscountCategoryResponse> create(DiscountCategoryRequest request) async {
     try {
-      final response = await _dio.post(DiscountCategoryEndpoints.createDiscountCategory, data: request.toJson());
+      final response = await _dio.post(DiscountCategoryEndpoints.create, data: request.toJson());
       return DiscountCategoryResponse.fromJson(response.data['data']);
     } on DioException catch (error) {
       throw ApiException.fromDioError(error);
     }
   }
 
-  Future<DiscountCategoryResponse> getDiscountCategoryById(int id) async {
+  Future<DiscountCategoryResponse> getById(int id) async {
     try {
-      final response = await _dio.get('${DiscountCategoryEndpoints.getDiscountCategoryById}$id');
+      final response = await _dio.get('${DiscountCategoryEndpoints.getById}$id');
       return DiscountCategoryResponse.fromJson(response.data['data']);
     } on DioException catch (error) {
       throw ApiException.fromDioError(error);
     }
   }
 
-  Future<List<DiscountCategoryResponse>> getDiscountCategories() async {
+  Future<List<DiscountCategoryResponse>> gets() async {
     try {
-      final response = await _dio.get(DiscountCategoryEndpoints.getDiscountCategories);
+      final response = await _dio.get(DiscountCategoryEndpoints.gets);
       return (response.data['data'] as List).map((json) => DiscountCategoryResponse.fromJson(json)).toList();
     } on DioException catch (error) {
       throw ApiException.fromDioError(error);
     }
   }
 
-  Future<DiscountCategoryResponse> updateDiscountCategoryById(int id, DiscountCategoryRequest request) async {
+  Future<DiscountCategoryResponse> updateById(int id, DiscountCategoryRequest request) async {
     try {
-      final response = await _dio.patch('${DiscountCategoryEndpoints.updateDiscountCategoryById}$id', data: request.toJson());
+      final response = await _dio.patch('${DiscountCategoryEndpoints.updateById}$id', data: request.toJson());
       return DiscountCategoryResponse.fromJson(response.data['data']);
     } on DioException catch (error) {
       throw ApiException.fromDioError(error);
     }
   }
 
-  Future<void> deleteDiscountCategoryById(int id) async {
+  Future<void> deleteById(int id) async {
     try {
-      await _dio.delete('${DiscountCategoryEndpoints.deleteDiscountCategoryById}$id');
+      await _dio.delete('${DiscountCategoryEndpoints.deleteById}$id');
     } on DioException catch (error) {
       throw ApiException.fromDioError(error);
     }

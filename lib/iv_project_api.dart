@@ -21,6 +21,7 @@ export 'src/services/review_service.dart';
 export 'src/services/transaction_confirmation_service.dart';
 export 'src/services/transaction_payment_service.dart';
 export 'src/services/transaction_service.dart';
+export 'src/services/transaction_status_service.dart';
 export 'src/services/user_profile_service.dart';
 export 'src/services/user_service.dart';
 export 'src/services/voucher_code_service.dart';

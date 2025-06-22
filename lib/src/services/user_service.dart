@@ -7,53 +7,53 @@ import 'package:iv_project_model/iv_project_model.dart';
 class UserService {
   final Dio _dio = ApiClient.dio;
 
-  Future<UserResponse> getUser() async {
+  Future<UserResponse> get() async {
     try {
-      final response = await _dio.get(UserEndpoints.getUser);
+      final response = await _dio.get(UserEndpoints.get);
       return UserResponse.fromJson(response.data['data']);
     } on DioException catch (error) {
       throw ApiException.fromDioError(error);
     }
   }
 
-  Future<UserResponse> getUserById(String id) async {
+  Future<UserResponse> getById(String id) async {
     try {
-      final response = await _dio.get('${UserEndpoints.getUserById}$id');
+      final response = await _dio.get('${UserEndpoints.getById}$id');
       return UserResponse.fromJson(response.data['data']);
     } on DioException catch (error) {
       throw ApiException.fromDioError(error);
     }
   }
 
-  Future<List<UserResponse>> getUsers({QueryRequest? query}) async {
+  Future<List<UserResponse>> gets({QueryRequest? query}) async {
     try {
-      final response = await _dio.get(UserEndpoints.getUsers, data: query?.toJson());
+      final response = await _dio.get(UserEndpoints.gets, data: query?.toJson());
       return (response.data['data'] as List).map((json) => UserResponse.fromJson(json)).toList();
     } on DioException catch (error) {
       throw ApiException.fromDioError(error);
     }
   }
 
-  Future<UserResponse> updateUserById(String id, UserRequest request) async {
+  Future<UserResponse> updateById(String id, UserRequest request) async {
     try {
-      final response = await _dio.patch('${UserEndpoints.updateUserById}$id', data: request.toJson());
+      final response = await _dio.patch('${UserEndpoints.updateById}$id', data: request.toJson());
       return UserResponse.fromJson(response.data['data']);
     } on DioException catch (error) {
       throw ApiException.fromDioError(error);
     }
   }
 
-  Future<void> deleteUser() async {
+  Future<void> delete() async {
     try {
-      await _dio.delete(UserEndpoints.deleteUser);
+      await _dio.delete(UserEndpoints.delete);
     } on DioException catch (error) {
       throw ApiException.fromDioError(error);
     }
   }
 
-  Future<void> deleteUserById(String id) async {
+  Future<void> deleteById(String id) async {
     try {
-      await _dio.delete('${UserEndpoints.deleteUserById}$id');
+      await _dio.delete('${UserEndpoints.deleteById}$id');
     } on DioException catch (error) {
       throw ApiException.fromDioError(error);
     }

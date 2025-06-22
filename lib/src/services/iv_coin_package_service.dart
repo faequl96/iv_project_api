@@ -7,45 +7,45 @@ import 'package:iv_project_model/iv_project_model.dart';
 class IVCoinPackageService {
   final Dio _dio = ApiClient.dio;
 
-  Future<IVCoinPackageResponse> createIVCoinPackage(CreateIVCoinPackageRequest request) async {
+  Future<IVCoinPackageResponse> create(CreateIVCoinPackageRequest request) async {
     try {
-      final response = await _dio.post(IVCoinPackageEndpoints.createIVCoinPackage, data: request.toJson());
+      final response = await _dio.post(IVCoinPackageEndpoints.create, data: request.toJson());
       return IVCoinPackageResponse.fromJson(response.data['data']);
     } on DioException catch (error) {
       throw ApiException.fromDioError(error);
     }
   }
 
-  Future<IVCoinPackageResponse> getIVCoinPackageById(int id) async {
+  Future<IVCoinPackageResponse> getById(int id) async {
     try {
-      final response = await _dio.get('${IVCoinPackageEndpoints.getIVCoinPackageById}$id');
+      final response = await _dio.get('${IVCoinPackageEndpoints.getById}$id');
       return IVCoinPackageResponse.fromJson(response.data['data']);
     } on DioException catch (error) {
       throw ApiException.fromDioError(error);
     }
   }
 
-  Future<List<IVCoinPackageResponse>> getIVCoinPackages() async {
+  Future<List<IVCoinPackageResponse>> gets() async {
     try {
-      final response = await _dio.get(IVCoinPackageEndpoints.getIVCoinPackages);
+      final response = await _dio.get(IVCoinPackageEndpoints.gets);
       return (response.data['data'] as List).map((json) => IVCoinPackageResponse.fromJson(json)).toList();
     } on DioException catch (error) {
       throw ApiException.fromDioError(error);
     }
   }
 
-  Future<IVCoinPackageResponse> updateIVCoinPackageById(int id, UpdateIVCoinPackageRequest request) async {
+  Future<IVCoinPackageResponse> updateById(int id, UpdateIVCoinPackageRequest request) async {
     try {
-      final response = await _dio.patch('${IVCoinPackageEndpoints.updateIVCoinPackageById}$id', data: request.toJson());
+      final response = await _dio.patch('${IVCoinPackageEndpoints.updateById}$id', data: request.toJson());
       return IVCoinPackageResponse.fromJson(response.data['data']);
     } on DioException catch (error) {
       throw ApiException.fromDioError(error);
     }
   }
 
-  Future<void> deleteIVCoinPackageById(int id) async {
+  Future<void> deleteById(int id) async {
     try {
-      await _dio.delete('${IVCoinPackageEndpoints.deleteIVCoinPackageById}$id');
+      await _dio.delete('${IVCoinPackageEndpoints.deleteById}$id');
     } on DioException catch (error) {
       throw ApiException.fromDioError(error);
     }

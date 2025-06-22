@@ -7,54 +7,54 @@ import 'package:iv_project_model/iv_project_model.dart';
 class ReviewService {
   final Dio _dio = ApiClient.dio;
 
-  Future<ReviewResponse> createReview(CreateReviewRequest request) async {
+  Future<ReviewResponse> create(CreateReviewRequest request) async {
     try {
-      final response = await _dio.post(ReviewEndpoints.createReview, data: request.toJson());
+      final response = await _dio.post(ReviewEndpoints.create, data: request.toJson());
       return ReviewResponse.fromJson(response.data['data']);
     } on DioException catch (error) {
       throw ApiException.fromDioError(error);
     }
   }
 
-  Future<ReviewResponse> getReviewById(int id) async {
+  Future<ReviewResponse> getById(int id) async {
     try {
-      final response = await _dio.get('${ReviewEndpoints.getReviewById}$id');
+      final response = await _dio.get('${ReviewEndpoints.getById}$id');
       return ReviewResponse.fromJson(response.data['data']);
     } on DioException catch (error) {
       throw ApiException.fromDioError(error);
     }
   }
 
-  Future<List<ReviewResponse>> getReviews() async {
+  Future<List<ReviewResponse>> gets() async {
     try {
-      final response = await _dio.get(ReviewEndpoints.getReviews);
+      final response = await _dio.get(ReviewEndpoints.gets);
       return (response.data['data'] as List).map((json) => ReviewResponse.fromJson(json)).toList();
     } on DioException catch (error) {
       throw ApiException.fromDioError(error);
     }
   }
 
-  Future<List<ReviewResponse>> getReviewsByInvitationThemeId(int invitationThemeId) async {
+  Future<List<ReviewResponse>> getsByInvitationThemeId(int invitationThemeId) async {
     try {
-      final response = await _dio.get('${ReviewEndpoints.getReviewsByInvitationThemeId}$invitationThemeId');
+      final response = await _dio.get('${ReviewEndpoints.getsByInvitationThemeId}$invitationThemeId');
       return (response.data['data'] as List).map((json) => ReviewResponse.fromJson(json)).toList();
     } on DioException catch (error) {
       throw ApiException.fromDioError(error);
     }
   }
 
-  Future<ReviewResponse> updateReviewById(int id, UpdateReviewRequest request) async {
+  Future<ReviewResponse> updateById(int id, UpdateReviewRequest request) async {
     try {
-      final response = await _dio.patch('${ReviewEndpoints.updateReviewById}$id', data: request.toJson());
+      final response = await _dio.patch('${ReviewEndpoints.updateById}$id', data: request.toJson());
       return ReviewResponse.fromJson(response.data['data']);
     } on DioException catch (error) {
       throw ApiException.fromDioError(error);
     }
   }
 
-  Future<void> deleteReviewById(int id) async {
+  Future<void> deleteById(int id) async {
     try {
-      await _dio.delete('${ReviewEndpoints.deleteReviewById}$id');
+      await _dio.delete('${ReviewEndpoints.deleteById}$id');
     } on DioException catch (error) {
       throw ApiException.fromDioError(error);
     }

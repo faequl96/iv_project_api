@@ -7,29 +7,29 @@ class AuthEndpoints {
 class UserEndpoints {
   const UserEndpoints._();
 
-  static const getUser = '/user';
-  static const getUserById = '/user/id/';
-  static const getUsers = '/users';
-  static const updateUserById = '/user/id/';
-  static const deleteUser = '/user';
-  static const deleteUserById = '/user/id/';
+  static const get = '/user';
+  static const getById = '/user/id/';
+  static const gets = '/users';
+  static const updateById = '/user/id/';
+  static const delete = '/user';
+  static const deleteById = '/user/id/';
 }
 
 class UserProfileEndpoints {
   const UserProfileEndpoints._();
 
-  static const getUserProfile = '/user-profile';
-  static const getUserProfileById = '/user-profile/id/';
-  static const updateUserProfile = '/user-profile';
-  static const updateUserProfileById = '/user-profile/id/';
+  static const get = '/user-profile';
+  static const getById = '/user-profile/id/';
+  static const update = '/user-profile';
+  static const updateById = '/user-profile/id/';
 }
 
 class IVCoinEndpoints {
   const IVCoinEndpoints._();
 
-  static const getIVCoin = '/iv-coin';
-  static const getIVCoinById = '/iv-coin/id/';
-  static const updateIVCoinById = '/iv-coin/id/';
+  static const get = '/iv-coin';
+  static const getById = '/iv-coin/id/';
+  static const updateById = '/iv-coin/id/';
 }
 
 class AdMobEndpoints {
@@ -41,42 +41,42 @@ class AdMobEndpoints {
 class CategoryEndpoints {
   const CategoryEndpoints._();
 
-  static const createCategory = '/category';
-  static const getCategoryById = '/category/id/';
-  static const getCategories = '/categories';
-  static const updateCategoryById = '/category/id/';
-  static const deleteCategoryById = '/category/id/';
+  static const create = '/category';
+  static const getById = '/category/id/';
+  static const gets = '/categories';
+  static const updateById = '/category/id/';
+  static const deleteById = '/category/id/';
 }
 
 class DiscountCategoryEndpoints {
   const DiscountCategoryEndpoints._();
 
-  static const createDiscountCategory = '/discount-category';
-  static const getDiscountCategoryById = '/discount-category/id/';
-  static const getDiscountCategories = '/discount-categories';
-  static const updateDiscountCategoryById = '/discount-category/id/';
-  static const deleteDiscountCategoryById = '/discount-category/id/';
+  static const create = '/discount-category';
+  static const getById = '/discount-category/id/';
+  static const gets = '/discount-categories';
+  static const updateById = '/discount-category/id/';
+  static const deleteById = '/discount-category/id/';
 }
 
 class IVCoinPackageEndpoints {
   const IVCoinPackageEndpoints._();
 
-  static const createIVCoinPackage = '/iv-coin-package';
-  static const getIVCoinPackageById = '/iv-coin-package/id/';
-  static const getIVCoinPackages = '/iv-coin-packages';
-  static const updateIVCoinPackageById = '/iv-coin-package/id/';
-  static const deleteIVCoinPackageById = '/iv-coin-package/id/';
+  static const create = '/iv-coin-package';
+  static const getById = '/iv-coin-package/id/';
+  static const gets = '/iv-coin-packages';
+  static const updateById = '/iv-coin-package/id/';
+  static const deleteById = '/iv-coin-package/id/';
 }
 
 class InvitationThemeEndpoints {
   const InvitationThemeEndpoints._();
 
-  static const createInvitationTheme = '/invitation-theme';
-  static const getInvitationThemeById = '/invitation-theme/id/';
-  static const getInvitationThemes = '/invitation-themes';
-  static const getInvitationThemesByCategoryId = '/invitation-themes/category-id/';
-  static const updateInvitationThemeById = '/invitation-theme/id/';
-  static const deleteInvitationThemeById = '/invitation-theme/id/';
+  static const create = '/invitation-theme';
+  static const getById = '/invitation-theme/id/';
+  static const gets = '/invitation-themes';
+  static const getsByCategoryId = '/invitation-themes/category-id/';
+  static const updateById = '/invitation-theme/id/';
+  static const deleteById = '/invitation-theme/id/';
 }
 
 class DiscountEndpoints {
@@ -88,47 +88,48 @@ class DiscountEndpoints {
 class ReviewEndpoints {
   const ReviewEndpoints._();
 
-  static const createReview = '/review';
-  static const getReviewById = '/review/id/';
-  static const getReviews = '/reviews';
-  static const getReviewsByInvitationThemeId = '/reviews/invitation-theme-id/';
-  static const updateReviewById = '/review/id/';
-  static const deleteReviewById = '/review/id/';
+  static const create = '/review';
+  static const getById = '/review/id/';
+  static const gets = '/reviews';
+  static const getsByInvitationThemeId = '/reviews/invitation-theme-id/';
+  static const updateById = '/review/id/';
+  static const deleteById = '/review/id/';
 }
 
 class InvitationEndpoints {
   const InvitationEndpoints._();
 
-  static const createInvitation = '/invitation';
-  static const getInvitationById = '/invitation/id/';
-  static const getInvitations = '/invitations';
-  static const getInvitationsByUserId = '/invitations/user-id/';
-  static const updateInvitationById = '/invitation/id/';
-  static const deleteInvitationById = '/invitation/id/';
+  static const create = '/invitation';
+  static const getById = '/invitation/id/';
+  static const gets = '/invitations';
+  static const getsByUserId = '/invitations/user-id/';
+  static const updateById = '/invitation/id/';
+  static const deleteById = '/invitation/id/';
 }
 
 class InvitationDataEndpoints {
   const InvitationDataEndpoints._();
 
-  static const getInvitationDataById = '/invitation-data/id/';
-  static const updateInvitationDataById = '/invitation-data/id/';
+  static const getById = '/invitation-data/id/';
+  static const updateById = '/invitation-data/id/';
 }
 
 class TransactionEndpoints {
   const TransactionEndpoints._();
 
-  static const createTransaction = '/transaction';
-  static const getTransactionById = '/transaction/id/';
-  static const getTransactions = '/transactions';
-  static const getTransactionsByUserId = '/transactions/user-id/';
-  static const updateTransactionById = '/transaction/id/';
-  static const deleteTransactionById = '/transaction/id/';
+  static const create = '/transaction';
+  static const getById = '/transaction/id/';
+  static const getByReferenceNumber = '/transaction/reference-number/';
+  static const gets = '/transactions';
+  static const getsByUserId = '/transactions/user-id/';
+  static const updateById = '/transaction/id/';
+  static const deleteById = '/transaction/id/';
 }
 
 class TransactionPaymentEndpoints {
   const TransactionPaymentEndpoints._();
 
-  static const issueById = '/issue/id/';
+  static const issueById = '/transaction-payment-issue/id/';
 }
 
 class TransactionConfirmationEndpoints {
@@ -137,12 +138,20 @@ class TransactionConfirmationEndpoints {
   static const manualByAdminById = '/transaction-confirmation-manual/id/';
 }
 
+class TransactionStatusEndpoints {
+  const TransactionStatusEndpoints._();
+
+  static const checkByReferenceNumber = '/transaction-status-check/reference-number/';
+  static const resetById = '/transaction-status-reset/id/';
+}
+
 class VoucherCodeEndpoints {
   const VoucherCodeEndpoints._();
 
-  static const createVoucherCode = '/voucher-code';
-  static const getVoucherCodeById = '/voucher-code/id/';
-  static const getVoucherCodeByName = '/voucher-code/name/';
-  static const updateVoucherCodeById = '/voucher-code/id/';
-  static const deleteVoucherCodeById = '/voucher-code/id/';
+  static const create = '/voucher-code';
+  static const getById = '/voucher-code/id/';
+  static const getByName = '/voucher-code/name/';
+  static const gets = '/voucher-codes';
+  static const updateById = '/voucher-code/id/';
+  static const deleteById = '/voucher-code/id/';
 }

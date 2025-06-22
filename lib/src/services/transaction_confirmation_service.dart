@@ -7,9 +7,9 @@ import 'package:iv_project_model/iv_project_model.dart';
 class TransactionConfirmationService {
   final Dio _dio = ApiClient.dio;
 
-  Future<TransactionResponse> manualByAdminById(int id) async {
+  Future<TransactionResponse> manualByAdminById(String id) async {
     try {
-      final response = await _dio.post('${TransactionConfirmationEndpoints.manualByAdminById}$id');
+      final response = await _dio.patch('${TransactionConfirmationEndpoints.manualByAdminById}$id');
       return TransactionResponse.fromJson(response.data['data']);
     } on DioException catch (error) {
       throw ApiException.fromDioError(error);

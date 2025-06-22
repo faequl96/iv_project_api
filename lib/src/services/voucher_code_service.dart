@@ -7,45 +7,54 @@ import 'package:iv_project_model/iv_project_model.dart';
 class VoucherCodeService {
   final Dio _dio = ApiClient.dio;
 
-  Future<VoucherCodeResponse> createVoucherCode(VoucherCodeRequest request) async {
+  Future<VoucherCodeResponse> create(VoucherCodeRequest request) async {
     try {
-      final response = await _dio.post(VoucherCodeEndpoints.createVoucherCode, data: request.toJson());
+      final response = await _dio.post(VoucherCodeEndpoints.create, data: request.toJson());
       return VoucherCodeResponse.fromJson(response.data['data']);
     } on DioException catch (error) {
       throw ApiException.fromDioError(error);
     }
   }
 
-  Future<VoucherCodeResponse> getVoucherCodeById(int id) async {
+  Future<VoucherCodeResponse> getById(int id) async {
     try {
-      final response = await _dio.get('${VoucherCodeEndpoints.getVoucherCodeById}$id');
+      final response = await _dio.get('${VoucherCodeEndpoints.getById}$id');
       return VoucherCodeResponse.fromJson(response.data['data']);
     } on DioException catch (error) {
       throw ApiException.fromDioError(error);
     }
   }
 
-  Future<VoucherCodeResponse> getVoucherCodeByName(String name) async {
+  Future<VoucherCodeResponse> getByName(String name) async {
     try {
-      final response = await _dio.get('${VoucherCodeEndpoints.getVoucherCodeByName}$name');
+      final response = await _dio.get('${VoucherCodeEndpoints.getByName}$name');
       return VoucherCodeResponse.fromJson(response.data['data']);
     } on DioException catch (error) {
       throw ApiException.fromDioError(error);
     }
   }
 
-  Future<VoucherCodeResponse> updateVoucherCodeById(int id, VoucherCodeRequest request) async {
+  Future<List<VoucherCodeResponse>> gets() async {
     try {
-      final response = await _dio.patch('${VoucherCodeEndpoints.updateVoucherCodeById}$id', data: request.toJson());
+      final response = await _dio.get(VoucherCodeEndpoints.gets);
+      return (response.data['data'] as List).map((json) => VoucherCodeResponse.fromJson(json)).toList();
+    } on DioException catch (error) {
+      throw ApiException.fromDioError(error);
+    }
+  }
+
+  Future<VoucherCodeResponse> updateById(int id, VoucherCodeRequest request) async {
+    try {
+      final response = await _dio.patch('${VoucherCodeEndpoints.updateById}$id', data: request.toJson());
       return VoucherCodeResponse.fromJson(response.data['data']);
     } on DioException catch (error) {
       throw ApiException.fromDioError(error);
     }
   }
 
-  Future<void> deleteVoucherCodeById(int id) async {
+  Future<void> deleteById(int id) async {
     try {
-      await _dio.delete('${VoucherCodeEndpoints.deleteVoucherCodeById}$id');
+      await _dio.delete('${VoucherCodeEndpoints.deleteById}$id');
     } on DioException catch (error) {
       throw ApiException.fromDioError(error);
     }

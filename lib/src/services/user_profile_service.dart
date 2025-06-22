@@ -7,36 +7,36 @@ import 'package:iv_project_model/iv_project_model.dart';
 class UserProfileService {
   final Dio _dio = ApiClient.dio;
 
-  Future<UserProfileResponse> getUserProfile() async {
+  Future<UserProfileResponse> get() async {
     try {
-      final response = await _dio.get(UserProfileEndpoints.getUserProfile);
+      final response = await _dio.get(UserProfileEndpoints.get);
       return UserProfileResponse.fromJson(response.data['data']);
     } on DioException catch (error) {
       throw ApiException.fromDioError(error);
     }
   }
 
-  Future<UserProfileResponse> getUserProfileById(int id) async {
+  Future<UserProfileResponse> getById(int id) async {
     try {
-      final response = await _dio.get('${UserProfileEndpoints.getUserProfileById}$id');
+      final response = await _dio.get('${UserProfileEndpoints.getById}$id');
       return UserProfileResponse.fromJson(response.data['data']);
     } on DioException catch (error) {
       throw ApiException.fromDioError(error);
     }
   }
 
-  Future<UserProfileResponse> updateUserProfile(UserProfileRequest request) async {
+  Future<UserProfileResponse> update(UserProfileRequest request) async {
     try {
-      final response = await _dio.patch(UserProfileEndpoints.updateUserProfile, data: request.toJson());
+      final response = await _dio.patch(UserProfileEndpoints.update, data: request.toJson());
       return UserProfileResponse.fromJson(response.data['data']);
     } on DioException catch (error) {
       throw ApiException.fromDioError(error);
     }
   }
 
-  Future<UserProfileResponse> updateUserProfileById(int id, UserProfileRequest request) async {
+  Future<UserProfileResponse> updateById(int id, UserProfileRequest request) async {
     try {
-      final response = await _dio.patch('${UserProfileEndpoints.updateUserProfileById}$id', data: request.toJson());
+      final response = await _dio.patch('${UserProfileEndpoints.updateById}$id', data: request.toJson());
       return UserProfileResponse.fromJson(response.data['data']);
     } on DioException catch (error) {
       throw ApiException.fromDioError(error);
