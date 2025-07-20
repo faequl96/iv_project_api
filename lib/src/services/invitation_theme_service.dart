@@ -1,7 +1,5 @@
 import 'package:dio/dio.dart';
-import 'package:iv_project_api/src/core/api_client.dart';
-import 'package:iv_project_api/src/core/api_exception.dart';
-import 'package:iv_project_api/src/core/endpoints.dart';
+import 'package:iv_project_api_core/iv_project_api_core.dart';
 import 'package:iv_project_model/iv_project_model.dart';
 
 class InvitationThemeService {
@@ -25,9 +23,9 @@ class InvitationThemeService {
     }
   }
 
-  Future<List<InvitationThemeResponse>> gets() async {
+  Future<List<InvitationThemeResponse>> gets({QueryRequest? query}) async {
     try {
-      final response = await _dio.get(InvitationThemeEndpoints.gets);
+      final response = await _dio.get(InvitationThemeEndpoints.gets, data: query?.toJson());
       return (response.data['data'] as List).map((json) => InvitationThemeResponse.fromJson(json)).toList();
     } on DioException catch (error) {
       throw ApiException.fromDioError(error);

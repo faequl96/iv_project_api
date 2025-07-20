@@ -1,7 +1,5 @@
 import 'package:dio/dio.dart';
-import 'package:iv_project_api/src/core/api_client.dart';
-import 'package:iv_project_api/src/core/api_exception.dart';
-import 'package:iv_project_api/src/core/endpoints.dart';
+import 'package:iv_project_api_core/iv_project_api_core.dart';
 import 'package:iv_project_model/iv_project_model.dart';
 
 class TransactionService {
@@ -9,9 +7,7 @@ class TransactionService {
 
   Future<TransactionResponse> create(CreateTransactionRequest request) async {
     try {
-      print('tesss');
       final response = await _dio.post(TransactionEndpoints.create, data: request.toJson());
-      print('tesss');
       return TransactionResponse.fromJson(response.data['data']);
     } on DioException catch (error) {
       throw ApiException.fromDioError(error);
@@ -36,9 +32,9 @@ class TransactionService {
     }
   }
 
-  Future<List<TransactionResponse>> gets() async {
+  Future<List<TransactionResponse>> gets({QueryRequest? query}) async {
     try {
-      final response = await _dio.get(TransactionEndpoints.gets);
+      final response = await _dio.get(TransactionEndpoints.gets, data: query?.toJson());
       return (response.data['data'] as List).map((json) => TransactionResponse.fromJson(json)).toList();
     } on DioException catch (error) {
       throw ApiException.fromDioError(error);
@@ -56,7 +52,6 @@ class TransactionService {
 
   Future<TransactionResponse> updateById(String id, UpdateTransactionRequest request) async {
     try {
-      print(request.toJson());
       final response = await _dio.patch('${TransactionEndpoints.updateById}$id', data: request.toJson());
       return TransactionResponse.fromJson(response.data['data']);
     } on DioException catch (error) {
