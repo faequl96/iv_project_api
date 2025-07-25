@@ -12,21 +12,21 @@ dependencies:
   flutter:
     sdk: flutter
 
-  # iv_project_model:
-  #   path: ../iv_project_model
-
   iv_project_model:
-    git:
-      url: https://github.com/faequl96/iv_project_model.git
-      ref: 0.0.4
+    path: ../iv_project_model
 
-  # iv_project_api_core:
-  #   path: ../iv_project_api_core
+  # iv_project_model:
+  #   git:
+  #     url: https://github.com/faequl96/iv_project_model.git
+  #     ref: 0.0.4
 
   iv_project_api_core:
-    git:
-      url: https://github.com/faequl96/iv_project_api_core.git
-      ref: 0.0.2
+    path: ../iv_project_api_core
+
+  # iv_project_api_core:
+  #   git:
+  #     url: https://github.com/faequl96/iv_project_api_core.git
+  #     ref: 0.0.2
   
   dio: ^5.8.0+1
   
