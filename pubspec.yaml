@@ -1,11 +1,11 @@
 name: iv_project_api
 description: "IV Project API"
-version: 0.0.7
+version: 0.0.8
 homepage:
 publish_to: none
 
 environment:
-  sdk: ^3.8.1
+  sdk: ^3.10.1
   flutter: ">=1.17.0"
 
 dependencies:
@@ -15,20 +15,10 @@ dependencies:
   iv_project_model:
     path: ../iv_project_model
 
-  # iv_project_model:
-  #   git:
-  #     url: https://github.com/faequl96/iv_project_model.git
-  #     ref: 0.0.4
-
   iv_project_api_core:
     path: ../iv_project_api_core
 
-  # iv_project_api_core:
-  #   git:
-  #     url: https://github.com/faequl96/iv_project_api_core.git
-  #     ref: 0.0.2
-  
-  dio: ^5.8.0+1
+  dio: ^5.9.0
   
 dev_dependencies:
   flutter_test:

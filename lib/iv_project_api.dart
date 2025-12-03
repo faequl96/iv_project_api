@@ -4,7 +4,6 @@ export 'src/ad_mob_service.dart';
 export 'src/category_service.dart';
 export 'src/discount_category_service.dart';
 export 'src/discount_service.dart';
-export 'src/invitation_data_service.dart';
 export 'src/invitation_service.dart';
 export 'src/invitation_theme_service.dart';
 export 'src/iv_coin_package_service.dart';

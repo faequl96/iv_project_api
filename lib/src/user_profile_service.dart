@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:dio/dio.dart';
 import 'package:iv_project_api_core/iv_project_api_core.dart';
 import 'package:iv_project_model/iv_project_model.dart';
@@ -23,9 +25,24 @@ class UserProfileService {
     }
   }
 
-  Future<UserProfileResponse> update(UserProfileRequest request) async {
+  Future<UserProfileResponse> update(UserProfileRequest request, String userId, LogoImageRequest? imageRequest) async {
     try {
-      final response = await _dio.patch(UserProfileEndpoints.update, data: request.toJson());
+      final formData = FormData.fromMap({
+        'user_profile': jsonEncode(request.toJson()),
+        'user_id': userId,
+        if (imageRequest != null)
+          ...(await imageRequest.toFormDataMap((logoImage) async {
+            final map = <String, dynamic>{};
+            if (logoImage != null) map['logo_image'] = await MultipartFile.fromFile(logoImage.path, filename: 'logo_image');
+            return map;
+          })),
+      });
+
+      final response = await _dio.patch(
+        UserProfileEndpoints.update,
+        data: formData,
+        options: Options(contentType: 'multipart/form-data'),
+      );
       return UserProfileResponse.fromJson(response.data['data']);
     } on DioException catch (error) {
       throw ApiException.fromDioError(error);
