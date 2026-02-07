@@ -1,11 +1,11 @@
 name: iv_project_api
 description: "IV Project API"
-version: 0.0.8
+version: 0.0.9
 homepage:
 publish_to: none
 
 environment:
-  sdk: ^3.10.1
+  sdk: ^3.10.8
   flutter: ">=1.17.0"
 
 dependencies:
@@ -19,7 +19,8 @@ dependencies:
     path: ../iv_project_api_core
 
   dio: ^5.9.0
-  
+  path: ^1.9.1
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
