@@ -72,11 +72,11 @@ class InvitationService {
     try {
       final formData = FormData.fromMap({
         'invitation': jsonEncode(request.toJson()),
-        'bride_nickname': request.invitationData?.bride?.nickname?.split(' ').first,
-        'groom_nickname': request.invitationData?.groom?.nickname?.split(' ').first,
-        'event_time': request.invitationData?.receptionEvent?.startTime != null
+        'bride_nickname': request.invitationData?.bride.nickname.split(' ').first,
+        'groom_nickname': request.invitationData?.groom.nickname.split(' ').first,
+        'event_time': request.invitationData?.receptionEvent.startTime != null
             ? DateTimeConverter.toJson(
-                request.invitationData?.receptionEvent?.startTime,
+                request.invitationData?.receptionEvent.startTime,
               )!.substring(0, 16).replaceAll('-', '_').replaceAll(' ', '_').replaceAll(':', '_')
             : null,
         if (imageRequest != null)
