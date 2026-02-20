@@ -44,7 +44,7 @@ class InvitationService {
         data: formData,
         options: Options(contentType: 'multipart/form-data'),
       );
-      return InvitationResponse.fromJson(response.data['data']);
+      return .fromJson(response.data['data']);
     } on DioException catch (error) {
       throw ApiException.fromDioError(error);
     }
@@ -53,7 +53,7 @@ class InvitationService {
   Future<InvitationResponse> getById(String id) async {
     try {
       final response = await _dio.get('${InvitationEndpoints.getById}$id');
-      return InvitationResponse.fromJson(response.data['data']);
+      return .fromJson(response.data['data']);
     } on DioException catch (error) {
       throw ApiException.fromDioError(error);
     }
@@ -105,7 +105,7 @@ class InvitationService {
         data: formData,
         options: Options(contentType: 'multipart/form-data'),
       );
-      return InvitationResponse.fromJson(response.data['data']);
+      return .fromJson(response.data['data']);
     } on DioException catch (error) {
       throw ApiException.fromDioError(error);
     }

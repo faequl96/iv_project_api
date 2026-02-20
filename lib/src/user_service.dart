@@ -8,7 +8,7 @@ class UserService {
   Future<UserResponse> get() async {
     try {
       final response = await _dio.get(UserEndpoints.get);
-      return UserResponse.fromJson(response.data['data']);
+      return .fromJson(response.data['data']);
     } on DioException catch (error) {
       throw ApiException.fromDioError(error);
     }
@@ -17,7 +17,7 @@ class UserService {
   Future<UserResponse> getById(String id) async {
     try {
       final response = await _dio.get('${UserEndpoints.getById}$id');
-      return UserResponse.fromJson(response.data['data']);
+      return .fromJson(response.data['data']);
     } on DioException catch (error) {
       throw ApiException.fromDioError(error);
     }
@@ -35,7 +35,7 @@ class UserService {
   Future<UserResponse> updateById(String id, UserRequest request) async {
     try {
       final response = await _dio.patch('${UserEndpoints.updateById}$id', data: request.toJson());
-      return UserResponse.fromJson(response.data['data']);
+      return .fromJson(response.data['data']);
     } on DioException catch (error) {
       throw ApiException.fromDioError(error);
     }

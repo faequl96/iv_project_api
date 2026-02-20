@@ -8,7 +8,7 @@ class VoucherCodeService {
   Future<VoucherCodeResponse> create(VoucherCodeRequest request) async {
     try {
       final response = await _dio.post(VoucherCodeEndpoints.create, data: request.toJson());
-      return VoucherCodeResponse.fromJson(response.data['data']);
+      return .fromJson(response.data['data']);
     } on DioException catch (error) {
       throw ApiException.fromDioError(error);
     }
@@ -17,7 +17,7 @@ class VoucherCodeService {
   Future<VoucherCodeResponse> getById(int id) async {
     try {
       final response = await _dio.get('${VoucherCodeEndpoints.getById}$id');
-      return VoucherCodeResponse.fromJson(response.data['data']);
+      return .fromJson(response.data['data']);
     } on DioException catch (error) {
       throw ApiException.fromDioError(error);
     }
@@ -26,7 +26,7 @@ class VoucherCodeService {
   Future<VoucherCodeResponse> getByName(String name) async {
     try {
       final response = await _dio.get('${VoucherCodeEndpoints.getByName}$name');
-      return VoucherCodeResponse.fromJson(response.data['data']);
+      return .fromJson(response.data['data']);
     } on DioException catch (error) {
       throw ApiException.fromDioError(error);
     }
@@ -44,7 +44,7 @@ class VoucherCodeService {
   Future<VoucherCodeResponse> updateById(int id, VoucherCodeRequest request) async {
     try {
       final response = await _dio.patch('${VoucherCodeEndpoints.updateById}$id', data: request.toJson());
-      return VoucherCodeResponse.fromJson(response.data['data']);
+      return .fromJson(response.data['data']);
     } on DioException catch (error) {
       throw ApiException.fromDioError(error);
     }

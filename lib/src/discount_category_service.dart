@@ -8,7 +8,7 @@ class DiscountCategoryService {
   Future<DiscountCategoryResponse> create(DiscountCategoryRequest request) async {
     try {
       final response = await _dio.post(DiscountCategoryEndpoints.create, data: request.toJson());
-      return DiscountCategoryResponse.fromJson(response.data['data']);
+      return .fromJson(response.data['data']);
     } on DioException catch (error) {
       throw ApiException.fromDioError(error);
     }
@@ -17,7 +17,7 @@ class DiscountCategoryService {
   Future<DiscountCategoryResponse> getById(int id) async {
     try {
       final response = await _dio.get('${DiscountCategoryEndpoints.getById}$id');
-      return DiscountCategoryResponse.fromJson(response.data['data']);
+      return .fromJson(response.data['data']);
     } on DioException catch (error) {
       throw ApiException.fromDioError(error);
     }
@@ -35,7 +35,7 @@ class DiscountCategoryService {
   Future<DiscountCategoryResponse> updateById(int id, DiscountCategoryRequest request) async {
     try {
       final response = await _dio.patch('${DiscountCategoryEndpoints.updateById}$id', data: request.toJson());
-      return DiscountCategoryResponse.fromJson(response.data['data']);
+      return .fromJson(response.data['data']);
     } on DioException catch (error) {
       throw ApiException.fromDioError(error);
     }

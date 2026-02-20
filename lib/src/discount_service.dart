@@ -8,7 +8,7 @@ class DiscountService {
   Future<DiscountResponse> setProductPrices(DiscountRequest request) async {
     try {
       final response = await _dio.patch(DiscountEndpoints.setProductPrices, data: request.toJson());
-      return DiscountResponse.fromJson(response.data['data']);
+      return .fromJson(response.data['data']);
     } on DioException catch (error) {
       throw ApiException.fromDioError(error);
     }

@@ -8,7 +8,7 @@ class TransactionStatusService {
   Future<TransactionResponse> checkByReferenceNumber(String referenceNumber) async {
     try {
       final response = await _dio.patch('${TransactionStatusEndpoints.checkByReferenceNumber}$referenceNumber');
-      return TransactionResponse.fromJson(response.data['data']);
+      return .fromJson(response.data['data']);
     } on DioException catch (error) {
       throw ApiException.fromDioError(error);
     }
@@ -17,7 +17,7 @@ class TransactionStatusService {
   Future<TransactionResponse> resetById(String id) async {
     try {
       final response = await _dio.patch('${TransactionStatusEndpoints.resetById}$id');
-      return TransactionResponse.fromJson(response.data['data']);
+      return .fromJson(response.data['data']);
     } on DioException catch (error) {
       throw ApiException.fromDioError(error);
     }

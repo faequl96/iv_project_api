@@ -8,7 +8,7 @@ class ReviewService {
   Future<ReviewResponse> create(CreateReviewRequest request) async {
     try {
       final response = await _dio.post(ReviewEndpoints.create, data: request.toJson());
-      return ReviewResponse.fromJson(response.data['data']);
+      return .fromJson(response.data['data']);
     } on DioException catch (error) {
       throw ApiException.fromDioError(error);
     }
@@ -17,7 +17,7 @@ class ReviewService {
   Future<ReviewResponse> getById(int id) async {
     try {
       final response = await _dio.get('${ReviewEndpoints.getById}$id');
-      return ReviewResponse.fromJson(response.data['data']);
+      return .fromJson(response.data['data']);
     } on DioException catch (error) {
       throw ApiException.fromDioError(error);
     }
@@ -44,7 +44,7 @@ class ReviewService {
   Future<ReviewResponse> updateById(int id, UpdateReviewRequest request) async {
     try {
       final response = await _dio.patch('${ReviewEndpoints.updateById}$id', data: request.toJson());
-      return ReviewResponse.fromJson(response.data['data']);
+      return .fromJson(response.data['data']);
     } on DioException catch (error) {
       throw ApiException.fromDioError(error);
     }

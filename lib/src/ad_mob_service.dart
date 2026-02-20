@@ -8,7 +8,7 @@ class AdMobService {
   Future<IVCoinResponse> addExtraIVCoins(AdMobRequest request) async {
     try {
       final response = await _dio.post(AdMobEndpoints.addExtraIVCoins, data: request.toJson());
-      return IVCoinResponse.fromJson(response.data['data']);
+      return .fromJson(response.data['data']);
     } on DioException catch (error) {
       throw ApiException.fromDioError(error);
     }

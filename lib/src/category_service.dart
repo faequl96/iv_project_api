@@ -8,7 +8,7 @@ class CategoryService {
   Future<CategoryResponse> create(CategoryRequest request) async {
     try {
       final response = await _dio.post(CategoryEndpoints.create, data: request.toJson());
-      return CategoryResponse.fromJson(response.data['data']);
+      return .fromJson(response.data['data']);
     } on DioException catch (error) {
       throw ApiException.fromDioError(error);
     }
@@ -17,7 +17,7 @@ class CategoryService {
   Future<CategoryResponse> getById(int id) async {
     try {
       final response = await _dio.get('${CategoryEndpoints.getById}$id');
-      return CategoryResponse.fromJson(response.data['data']);
+      return .fromJson(response.data['data']);
     } on DioException catch (error) {
       throw ApiException.fromDioError(error);
     }
@@ -35,7 +35,7 @@ class CategoryService {
   Future<CategoryResponse> updateById(int id, CategoryRequest request) async {
     try {
       final response = await _dio.patch('${CategoryEndpoints.updateById}$id', data: request.toJson());
-      return CategoryResponse.fromJson(response.data['data']);
+      return .fromJson(response.data['data']);
     } on DioException catch (error) {
       throw ApiException.fromDioError(error);
     }

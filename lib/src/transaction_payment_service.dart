@@ -8,7 +8,7 @@ class TransactionPaymentService {
   Future<TransactionResponse> issueById(String id) async {
     try {
       final response = await _dio.patch('${TransactionPaymentEndpoints.issueById}$id');
-      return TransactionResponse.fromJson(response.data['data']);
+      return .fromJson(response.data['data']);
     } on DioException catch (error) {
       throw ApiException.fromDioError(error);
     }

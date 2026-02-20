@@ -8,7 +8,7 @@ class IVCoinPackageService {
   Future<IVCoinPackageResponse> create(CreateIVCoinPackageRequest request) async {
     try {
       final response = await _dio.post(IVCoinPackageEndpoints.create, data: request.toJson());
-      return IVCoinPackageResponse.fromJson(response.data['data']);
+      return .fromJson(response.data['data']);
     } on DioException catch (error) {
       throw ApiException.fromDioError(error);
     }
@@ -17,7 +17,7 @@ class IVCoinPackageService {
   Future<IVCoinPackageResponse> getById(String id) async {
     try {
       final response = await _dio.get('${IVCoinPackageEndpoints.getById}$id');
-      return IVCoinPackageResponse.fromJson(response.data['data']);
+      return .fromJson(response.data['data']);
     } on DioException catch (error) {
       throw ApiException.fromDioError(error);
     }
@@ -35,7 +35,7 @@ class IVCoinPackageService {
   Future<IVCoinPackageResponse> updateById(String id, UpdateIVCoinPackageRequest request) async {
     try {
       final response = await _dio.patch('${IVCoinPackageEndpoints.updateById}$id', data: request.toJson());
-      return IVCoinPackageResponse.fromJson(response.data['data']);
+      return .fromJson(response.data['data']);
     } on DioException catch (error) {
       throw ApiException.fromDioError(error);
     }

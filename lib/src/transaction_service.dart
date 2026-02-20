@@ -8,7 +8,7 @@ class TransactionService {
   Future<TransactionResponse> create(CreateTransactionRequest request) async {
     try {
       final response = await _dio.post(TransactionEndpoints.create, data: request.toJson());
-      return TransactionResponse.fromJson(response.data['data']);
+      return .fromJson(response.data['data']);
     } on DioException catch (error) {
       throw ApiException.fromDioError(error);
     }
@@ -17,7 +17,7 @@ class TransactionService {
   Future<TransactionResponse> getById(String id) async {
     try {
       final response = await _dio.get('${TransactionEndpoints.getById}$id');
-      return TransactionResponse.fromJson(response.data['data']);
+      return .fromJson(response.data['data']);
     } on DioException catch (error) {
       throw ApiException.fromDioError(error);
     }
@@ -26,7 +26,7 @@ class TransactionService {
   Future<TransactionResponse> getByReferenceNumber(String referenceNumber) async {
     try {
       final response = await _dio.get('${TransactionEndpoints.getByReferenceNumber}$referenceNumber');
-      return TransactionResponse.fromJson(response.data['data']);
+      return .fromJson(response.data['data']);
     } on DioException catch (error) {
       throw ApiException.fromDioError(error);
     }
@@ -53,7 +53,7 @@ class TransactionService {
   Future<TransactionResponse> updateById(String id, UpdateTransactionRequest request) async {
     try {
       final response = await _dio.patch('${TransactionEndpoints.updateById}$id', data: request.toJson());
-      return TransactionResponse.fromJson(response.data['data']);
+      return .fromJson(response.data['data']);
     } on DioException catch (error) {
       throw ApiException.fromDioError(error);
     }
