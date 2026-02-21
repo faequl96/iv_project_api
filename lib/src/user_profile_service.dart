@@ -1,27 +1,27 @@
 import 'dart:convert';
 
-import 'package:dio/dio.dart';
+import 'package:http/http.dart' as http;
 import 'package:iv_project_api_core/iv_project_api_core.dart';
 import 'package:iv_project_model/iv_project_model.dart';
 
 class UserProfileService {
-  final Dio _dio = ApiClient.dio;
-
   Future<UserProfileResponse> get() async {
     try {
-      final response = await _dio.get(UserProfileEndpoints.get);
-      return .fromJson(response.data['data']);
-    } on DioException catch (error) {
-      throw ApiException.fromDioError(error);
+      final response = await ApiHttpClient.get(UserProfileEndpoints.get);
+      return .fromJson(jsonDecode(response.body)['data']);
+    } catch (e) {
+      if (e is String) rethrow;
+      throw 'Terjadi kesalahan saat mengolah data.';
     }
   }
 
   Future<UserProfileResponse> getById(int id) async {
     try {
-      final response = await _dio.get('${UserProfileEndpoints.getById}$id');
-      return .fromJson(response.data['data']);
-    } on DioException catch (error) {
-      throw ApiException.fromDioError(error);
+      final response = await ApiHttpClient.get('${UserProfileEndpoints.getById}$id');
+      return .fromJson(jsonDecode(response.body)['data']);
+    } catch (e) {
+      if (e is String) rethrow;
+      throw 'Terjadi kesalahan saat mengolah data.';
     }
   }
 
@@ -33,28 +33,28 @@ class UserProfileService {
         if (imageRequest != null)
           ...(await imageRequest.toFormDataMap((logoImage) async {
             final map = <String, dynamic>{};
-            if (logoImage != null) map['logo_image'] = await MultipartFile.fromFile(logoImage.path, filename: 'logo_image');
+            if (logoImage != null) {
+              map['logo_image'] = await http.MultipartFile.fromPath('logo_image', logoImage.path, filename: 'logo_image');
+            }
             return map;
           })),
       });
 
-      final response = await _dio.patch(
-        UserProfileEndpoints.update,
-        data: formData,
-        options: Options(contentType: 'multipart/form-data'),
-      );
-      return .fromJson(response.data['data']);
-    } on DioException catch (error) {
-      throw ApiException.fromDioError(error);
+      final response = await ApiHttpClient.patchByFormData(UserProfileEndpoints.update, data: formData);
+      return .fromJson(jsonDecode(response.body)['data']);
+    } catch (e) {
+      if (e is String) rethrow;
+      throw 'Terjadi kesalahan saat mengolah data.';
     }
   }
 
   Future<UserProfileResponse> updateById(int id, UserProfileRequest request) async {
     try {
-      final response = await _dio.patch('${UserProfileEndpoints.updateById}$id', data: request.toJson());
-      return .fromJson(response.data['data']);
-    } on DioException catch (error) {
-      throw ApiException.fromDioError(error);
+      final response = await ApiHttpClient.patchByJson('${UserProfileEndpoints.updateById}$id', data: request.toJson());
+      return .fromJson(jsonDecode(response.body)['data']);
+    } catch (e) {
+      if (e is String) rethrow;
+      throw 'Terjadi kesalahan saat mengolah data.';
     }
   }
 }

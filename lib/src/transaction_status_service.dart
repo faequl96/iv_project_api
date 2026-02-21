@@ -1,25 +1,26 @@
-import 'package:dio/dio.dart';
+import 'dart:convert';
+
 import 'package:iv_project_api_core/iv_project_api_core.dart';
 import 'package:iv_project_model/iv_project_model.dart';
 
 class TransactionStatusService {
-  final Dio _dio = ApiClient.dio;
-
   Future<TransactionResponse> checkByReferenceNumber(String referenceNumber) async {
     try {
-      final response = await _dio.patch('${TransactionStatusEndpoints.checkByReferenceNumber}$referenceNumber');
-      return .fromJson(response.data['data']);
-    } on DioException catch (error) {
-      throw ApiException.fromDioError(error);
+      final response = await ApiHttpClient.patchByJson('${TransactionStatusEndpoints.checkByReferenceNumber}$referenceNumber');
+      return .fromJson(jsonDecode(response.body)['data']);
+    } catch (e) {
+      if (e is String) rethrow;
+      throw 'Terjadi kesalahan saat mengolah data.';
     }
   }
 
   Future<TransactionResponse> resetById(String id) async {
     try {
-      final response = await _dio.patch('${TransactionStatusEndpoints.resetById}$id');
-      return .fromJson(response.data['data']);
-    } on DioException catch (error) {
-      throw ApiException.fromDioError(error);
+      final response = await ApiHttpClient.patchByJson('${TransactionStatusEndpoints.resetById}$id');
+      return .fromJson(jsonDecode(response.body)['data']);
+    } catch (e) {
+      if (e is String) rethrow;
+      throw 'Terjadi kesalahan saat mengolah data.';
     }
   }
 }

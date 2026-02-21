@@ -1,51 +1,55 @@
-import 'package:dio/dio.dart';
+import 'dart:convert';
+
 import 'package:iv_project_api_core/iv_project_api_core.dart';
 import 'package:iv_project_model/iv_project_model.dart';
 
 class DiscountCategoryService {
-  final Dio _dio = ApiClient.dio;
-
   Future<DiscountCategoryResponse> create(DiscountCategoryRequest request) async {
     try {
-      final response = await _dio.post(DiscountCategoryEndpoints.create, data: request.toJson());
-      return .fromJson(response.data['data']);
-    } on DioException catch (error) {
-      throw ApiException.fromDioError(error);
+      final response = await ApiHttpClient.postByJson(DiscountCategoryEndpoints.create, data: request.toJson());
+      return .fromJson(jsonDecode(response.body)['data']);
+    } catch (e) {
+      if (e is String) rethrow;
+      throw 'Terjadi kesalahan saat mengolah data.';
     }
   }
 
   Future<DiscountCategoryResponse> getById(int id) async {
     try {
-      final response = await _dio.get('${DiscountCategoryEndpoints.getById}$id');
-      return .fromJson(response.data['data']);
-    } on DioException catch (error) {
-      throw ApiException.fromDioError(error);
+      final response = await ApiHttpClient.get('${DiscountCategoryEndpoints.getById}$id');
+      return .fromJson(jsonDecode(response.body)['data']);
+    } catch (e) {
+      if (e is String) rethrow;
+      throw 'Terjadi kesalahan saat mengolah data.';
     }
   }
 
   Future<List<DiscountCategoryResponse>> gets() async {
     try {
-      final response = await _dio.get(DiscountCategoryEndpoints.gets);
-      return (response.data['data'] as List).map((json) => DiscountCategoryResponse.fromJson(json)).toList();
-    } on DioException catch (error) {
-      throw ApiException.fromDioError(error);
+      final response = await ApiHttpClient.get(DiscountCategoryEndpoints.gets);
+      return (jsonDecode(response.body)['data'] as List).map((json) => DiscountCategoryResponse.fromJson(json)).toList();
+    } catch (e) {
+      if (e is String) rethrow;
+      throw 'Terjadi kesalahan saat mengolah data.';
     }
   }
 
   Future<DiscountCategoryResponse> updateById(int id, DiscountCategoryRequest request) async {
     try {
-      final response = await _dio.patch('${DiscountCategoryEndpoints.updateById}$id', data: request.toJson());
-      return .fromJson(response.data['data']);
-    } on DioException catch (error) {
-      throw ApiException.fromDioError(error);
+      final response = await ApiHttpClient.patchByJson('${DiscountCategoryEndpoints.updateById}$id', data: request.toJson());
+      return .fromJson(jsonDecode(response.body)['data']);
+    } catch (e) {
+      if (e is String) rethrow;
+      throw 'Terjadi kesalahan saat mengolah data.';
     }
   }
 
   Future<void> deleteById(int id) async {
     try {
-      await _dio.delete('${DiscountCategoryEndpoints.deleteById}$id');
-    } on DioException catch (error) {
-      throw ApiException.fromDioError(error);
+      await ApiHttpClient.delete('${DiscountCategoryEndpoints.deleteById}$id');
+    } catch (e) {
+      if (e is String) rethrow;
+      throw 'Terjadi kesalahan saat mengolah data.';
     }
   }
 }

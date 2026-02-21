@@ -1,13 +1,11 @@
 import 'dart:convert';
 
-import 'package:dio/dio.dart';
+import 'package:http/http.dart' as http;
 import 'package:iv_project_api_core/iv_project_api_core.dart';
 import 'package:iv_project_model/iv_project_model.dart';
 import 'package:path/path.dart' as p;
 
 class InvitationService {
-  final Dio _dio = ApiClient.dio;
-
   Future<InvitationResponse> create(CreateInvitationRequest request, InvitationImageRequest? imageRequest) async {
     try {
       final formData = FormData.fromMap({
@@ -22,49 +20,58 @@ class InvitationService {
             final map = <String, dynamic>{};
 
             if (musicAudio != null) {
-              map['music_audio'] = await MultipartFile.fromFile(
+              map['music_audio'] = await http.MultipartFile.fromPath(
+                'music_audio',
                 musicAudio.path,
                 filename: p.basename(musicAudio.path).replaceAll(' ', '_'),
               );
             }
-            if (coverImage != null) map['cover_image'] = await MultipartFile.fromFile(coverImage.path, filename: 'cover_image');
-            if (brideImage != null) map['bride_image'] = await MultipartFile.fromFile(brideImage.path, filename: 'bride_image');
-            if (groomImage != null) map['groom_image'] = await MultipartFile.fromFile(groomImage.path, filename: 'groom_image');
+            if (coverImage != null) {
+              map['cover_image'] = await http.MultipartFile.fromPath('cover_image', coverImage.path, filename: 'cover_image');
+            }
+            if (brideImage != null) {
+              map['bride_image'] = await http.MultipartFile.fromPath('bride_image', brideImage.path, filename: 'bride_image');
+            }
+            if (groomImage != null) {
+              map['groom_image'] = await http.MultipartFile.fromPath('groom_image', groomImage.path, filename: 'groom_image');
+            }
             for (int i = 0; i < galleries.length; i++) {
               final image = galleries[i];
-              if (image != null) map['image_${i + 1}'] = await MultipartFile.fromFile(image.path, filename: 'image_${i + 1}');
+              if (image != null) {
+                final String key = 'image_${i + 1}';
+                map[key] = await http.MultipartFile.fromPath(key, image.path, filename: key);
+              }
             }
 
             return map;
           })),
       });
 
-      final response = await _dio.post(
-        InvitationEndpoints.create,
-        data: formData,
-        options: Options(contentType: 'multipart/form-data'),
-      );
-      return .fromJson(response.data['data']);
-    } on DioException catch (error) {
-      throw ApiException.fromDioError(error);
+      final response = await ApiHttpClient.postByFormData(InvitationEndpoints.create, data: formData);
+      return .fromJson(jsonDecode(response.body)['data']);
+    } catch (e) {
+      if (e is String) rethrow;
+      throw 'Terjadi kesalahan saat mengolah data.';
     }
   }
 
   Future<InvitationResponse> getById(String id) async {
     try {
-      final response = await _dio.get('${InvitationEndpoints.getById}$id');
-      return .fromJson(response.data['data']);
-    } on DioException catch (error) {
-      throw ApiException.fromDioError(error);
+      final response = await ApiHttpClient.get('${InvitationEndpoints.getById}$id');
+      return .fromJson(jsonDecode(response.body)['data']);
+    } catch (e) {
+      if (e is String) rethrow;
+      throw 'Terjadi kesalahan saat mengolah data.';
     }
   }
 
   Future<List<InvitationResponse>> gets({QueryRequest? query}) async {
     try {
-      final response = await _dio.get(InvitationEndpoints.gets, data: query?.toJson());
-      return (response.data['data'] as List).map((json) => InvitationResponse.fromJson(json)).toList();
-    } on DioException catch (error) {
-      throw ApiException.fromDioError(error);
+      final response = await ApiHttpClient.get(InvitationEndpoints.gets, data: query?.toJson());
+      return (jsonDecode(response.body)['data'] as List).map((json) => InvitationResponse.fromJson(json)).toList();
+    } catch (e) {
+      if (e is String) rethrow;
+      throw 'Terjadi kesalahan saat mengolah data.';
     }
   }
 
@@ -84,38 +91,46 @@ class InvitationService {
             final map = <String, dynamic>{};
 
             if (musicAudio != null) {
-              map['music_audio'] = await MultipartFile.fromFile(
+              map['music_audio'] = await http.MultipartFile.fromPath(
+                'music_audio',
                 musicAudio.path,
                 filename: p.basename(musicAudio.path).replaceAll(' ', '_'),
               );
             }
-            if (coverImage != null) map['cover_image'] = await MultipartFile.fromFile(coverImage.path, filename: 'cover_image');
-            if (brideImage != null) map['bride_image'] = await MultipartFile.fromFile(brideImage.path, filename: 'bride_image');
-            if (groomImage != null) map['groom_image'] = await MultipartFile.fromFile(groomImage.path, filename: 'groom_image');
+            if (coverImage != null) {
+              map['cover_image'] = await http.MultipartFile.fromPath('cover_image', coverImage.path, filename: 'cover_image');
+            }
+            if (brideImage != null) {
+              map['bride_image'] = await http.MultipartFile.fromPath('bride_image', brideImage.path, filename: 'bride_image');
+            }
+            if (groomImage != null) {
+              map['groom_image'] = await http.MultipartFile.fromPath('groom_image', groomImage.path, filename: 'groom_image');
+            }
             for (int i = 0; i < galleries.length; i++) {
               final image = galleries[i];
-              if (image != null) map['image_${i + 1}'] = await MultipartFile.fromFile(image.path, filename: 'image_${i + 1}');
+              if (image != null) {
+                final String key = 'image_${i + 1}';
+                map[key] = await http.MultipartFile.fromPath(key, image.path, filename: key);
+              }
             }
 
             return map;
           })),
       });
-      final response = await _dio.patch(
-        '${InvitationEndpoints.updateById}$id',
-        data: formData,
-        options: Options(contentType: 'multipart/form-data'),
-      );
-      return .fromJson(response.data['data']);
-    } on DioException catch (error) {
-      throw ApiException.fromDioError(error);
+      final response = await ApiHttpClient.patchByFormData('${InvitationEndpoints.updateById}$id', data: formData);
+      return .fromJson(jsonDecode(response.body)['data']);
+    } catch (e) {
+      if (e is String) rethrow;
+      throw 'Terjadi kesalahan saat mengolah data.';
     }
   }
 
   Future<void> deleteById(String id) async {
     try {
-      await _dio.delete('${InvitationEndpoints.deleteById}$id');
-    } on DioException catch (error) {
-      throw ApiException.fromDioError(error);
+      await ApiHttpClient.delete('${InvitationEndpoints.deleteById}$id');
+    } catch (e) {
+      if (e is String) rethrow;
+      throw 'Terjadi kesalahan saat mengolah data.';
     }
   }
 }
